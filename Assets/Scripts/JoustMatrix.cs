@@ -31,21 +31,21 @@ public class JoustMatrix : MonoBehaviour
     int [,] resultTable =  new int[cols, rows] ;
 
     //define rows and cols, consider enums
-    public const int col_LowHelm_Defense = 0;     //self explanitory
-    public const int col_LeanRight_Defense = 1;
-    public const int col_LeanLeft_Defense = 2;
-    public const int col_SteadySeat_Defense = 3;
-    public const int col_SheildHigh_Defense = 4;
-    public const int col_SheildLow_Defense = 5;
+    public  int col_LowHelm_Defense = 0;     //self explanitory
+    public  int col_LeanRight_Defense = 1;
+    public  int col_LeanLeft_Defense = 2;
+    public  int col_SteadySeat_Defense = 3;
+    public  int col_SheildHigh_Defense = 4;
+    public  int col_SheildLow_Defense = 5;
 
-    public const int row_Helm_Aim = 0;   //Helm
-    public const int row_DC_Aim = 1;     //Dexter Chief
-    public const int row_CP_Aim = 2;     //Cheif Pale
-    public const int row_SC_Aim = 3;     //Sinister Chief
-    public const int row_DF_Aim = 4;     //Dexter Fess
-    public const int row_FP_Aim = 5;     //Fess Pale
-    public const int row_SF_Aim = 6;     //Sinister Fess
-    public const int row_Base_Aim = 7;   //Base
+    public  int row_Helm_Aim = 0;   //Helm
+    public  int row_DC_Aim = 1;     //Dexter Chief
+    public  int row_CP_Aim = 2;     //Cheif Pale
+    public  int row_SC_Aim = 3;     //Sinister Chief
+    public  int row_DF_Aim = 4;     //Dexter Fess
+    public  int row_FP_Aim = 5;     //Fess Pale
+    public  int row_SF_Aim = 6;     //Sinister Fess
+    public  int row_Base_Aim = 7;   //Base
 
     //results:
     public const int res_BreakLance = 0;
@@ -71,6 +71,13 @@ public class JoustMatrix : MonoBehaviour
     string[] results = { "Break Lance", "GlanceOff", "Helm Knock Off",
                          "Injured", "Miss", "Unhorsed", "Break Lance, Unhorsed, and Injured",
                          "Break Lance and Unhorsed", "Unhorsed and Injured" };
+
+    public bool prevK1restrict;    //rule if break lance or helm off last round must assume 
+                                    //steady seat next round (why? as Gygax! oh shit, he's dead)
+
+    public bool prevK2restrict;    //rule if break lance or helm off last round must assume 
+                                    //steady seat next round (why? as Gygax! oh shit, he's dead)
+
 
     private void Start()
     {
@@ -160,8 +167,98 @@ public class JoustMatrix : MonoBehaviour
         }
     }
 
+   
     bool Validate()
     {
+        //Validate is tied to the GUI, prolly shouldn't do that, fix that later
+        //OR assume validation happens in the GUI prior to resolution, in which case
+        //figure out how to disable an entry in the list? DONE
+        //this is redundant unless AI code is running this, not GUI - code needs
+        //similar pre-check TODO: refactor this for AI, or AI make AI know the rules
+
+        //previous round restrictions
+        if (prevK1restrict == true && K1_Defend.value != col_SteadySeat_Defense)
+        {
+            //I guess I am shaken, and ust recover
+            Debug.Log("RULE: lost helm or broken lance, you must assume steady seat");
+            K1_Defend.value = col_SteadySeat_Defense;
+        }
+
+        if (prevK2restrict == true && K2_Defend.value != col_SteadySeat_Defense)
+        {
+            //I guess I am shaken, and ust recover
+            Debug.Log("RULE: K2 lost helm or broken lance, you must assume steady seat");
+            K2_Defend.value = col_SteadySeat_Defense;
+        }
+        
+        //Aim/Defense restriction  - TODO: find generalization?
+        if(K1_Aim.value == row_Helm_Aim &&  K1_Defend.value < 3 )
+        {
+            Debug.Log("K1 cannot assume that defense given the attack");
+            return false;
+        }
+        if (K2_Aim.value == row_Helm_Aim && K2_Defend.value < 3)
+        {
+            Debug.Log("K2 cannot assume that defense given the attack");
+            return false;
+        }
+        if (K1_Aim.value == row_DC_Aim && K1_Defend.value < 2)
+        {
+            Debug.Log("K1 cannot assume that defense given the attack");
+            return false;
+        }
+        if (K2_Aim.value == row_DC_Aim && K2_Defend.value < 2)
+        {
+            Debug.Log("K2 cannot assume that defense given the attack");
+            return false;
+        }
+        if (K1_Aim.value == row_SC_Aim && K1_Defend.value < 3 && K1_Defend.value != 1)
+        {
+            Debug.Log("K1 cannot assume that defense given the attack");
+            return false;
+        }
+        if (K2_Aim.value == row_SC_Aim && K2_Defend.value < 3 && K2_Defend.value != 1)
+        {
+            Debug.Log("K2 cannot assume that defense given the attack");
+            return false;
+        }
+        if (K1_Aim.value == row_DF_Aim && K1_Defend.value < 3 )
+        {
+            Debug.Log("K1 cannot assume that defense given the attack");
+            return false;
+        }
+
+        if (K2_Aim.value == row_DF_Aim && K2_Defend.value < 3)
+        {
+            Debug.Log("K2 cannot assume that defense given the attack");
+            return false;
+        }
+
+        if (K1_Aim.value == row_SF_Aim && K1_Defend.value < 3)
+        {
+            Debug.Log("K1 cannot assume that defense given the attack");
+            return false;
+        }
+        
+        if (K2_Aim.value == row_SF_Aim && K2_Defend.value < 3)
+        {
+            Debug.Log("K2 cannot assume that defense given the attack");
+            return false;
+        }
+
+        if (K1_Aim.value == row_Base_Aim && K1_Defend.value < 3 && K1_Defend.value != 0)
+        {
+            Debug.Log("K1 cannot assume that defense given the attack");
+            return false;
+        }
+
+        if (K2_Aim.value == row_Base_Aim && K2_Defend.value < 3 && K2_Defend.value != 0)
+        {
+            Debug.Log("K1 cannot assume that defense given the attack");
+            return false;
+        }
+
+        //All good
         return true;
     }
 
@@ -181,6 +278,9 @@ public class JoustMatrix : MonoBehaviour
         //params are passed in as ints, need a gui to represent them, but resolution
         //should not give a shit about that, it just becomes a return on the array location
 
+        prevK1restrict = false;  //clear flag
+
+
         //debug log a message based on string arrays
         Debug.Log("Knight 1 Aims at " + Aims[knight1aim] + 
                   " Knight2 Defends with " + Defences[knight2def]  );
@@ -192,22 +292,26 @@ public class JoustMatrix : MonoBehaviour
         if (res == res_BreakLance)
         {
             Debug.Log("Knight 1 Breaks his lance!");
+            prevK1restrict = true;
+
         }
         else if (res == res_BUI)
         {
             Debug.Log("Knight 1 Breaks his lance!");
             Debug.Log("Knight 2 defender is unhorsed and injured.");
+            prevK1restrict = true;
         }
         else if (res == res_BU)
         {
             Debug.Log("Knight 1 Breaks his lance!");
             Debug.Log("Knight 2 defender is unhorsed.");
+            prevK1restrict = true;
         }
         else 
         {
             Debug.Log("The result upon Knight2 defender is " + results[res]);
         }
-
+        
         return res;
 
     }
@@ -216,6 +320,9 @@ public class JoustMatrix : MonoBehaviour
     {
         //params are passed in as ints, need a gui to represent them, but resolution
         //should not give a shit about that, it just becomes a return on the array location
+
+        prevK2restrict = false;   //clear flag
+
 
         //debug log a message based on string arrays
         Debug.Log("Knight 2 Aims at " + Aims[knight2aim] +
@@ -227,16 +334,22 @@ public class JoustMatrix : MonoBehaviour
         if (res == res_BreakLance)
         {
             Debug.Log("Knight 2 Breaks his lance!");
+            prevK2restrict = true;
+
         }
         else if (res == res_BUI)
         {
             Debug.Log("Knight 2 Breaks his lance!");
             Debug.Log("Knight 1 defender is unhorsed and injured.");
+            prevK2restrict = true;
+
         }
         else if (res == res_BU)
         {
             Debug.Log("Knight 2 Breaks his lance!");
             Debug.Log("Knight 1 defender is unhorsed.");
+            prevK2restrict = true;
+
         }
         else
         {

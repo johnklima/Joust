@@ -354,6 +354,22 @@ MonoBehaviour:
   resolve: 0
   resultK1: 0
   resultK2: 0
+  col_LowHelm_Defense: 0
+  col_LeanRight_Defense: 1
+  col_LeanLeft_Defense: 2
+  col_SteadySeat_Defense: 3
+  col_SheildHigh_Defense: 4
+  col_SheildLow_Defense: 5
+  row_Helm_Aim: 0
+  row_DC_Aim: 1
+  row_CP_Aim: 2
+  row_SC_Aim: 3
+  row_DF_Aim: 4
+  row_FP_Aim: 5
+  row_SF_Aim: 6
+  row_Base_Aim: 7
+  prevK1restrict: 0
+  prevK2restrict: 0
 --- !u!114 &42780118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1429,61 +1445,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 422970308}
   m_CullTransparentMesh: 1
---- !u!1 &435380561
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 435380563}
-  - component: {fileID: 435380562}
-  m_Layer: 0
-  m_Name: Joust
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &435380562
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 435380561}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4865b257a2b4cb4f8936f14a3281808, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  K1_Aim: {fileID: 0}
-  K2_Aim: {fileID: 0}
-  K1_Defend: {fileID: 0}
-  K2_Defend: {fileID: 0}
-  knight1Aim: 6
-  knight1Defense: 3
-  knight2Aim: 0
-  knight2Defense: 4
-  resolve: 0
-  resultK1: 0
-  resultK2: 0
---- !u!4 &435380563
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 435380561}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &439269970
 GameObject:
   m_ObjectHideFlags: 0
@@ -3203,7 +3164,19 @@ MonoBehaviour:
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 42780117}
+        m_TargetAssemblyTypeName: JoustMatrix, Assembly-CSharp
+        m_MethodName: CheckDefence
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_AlphaFadeSpeed: 0.15
 --- !u!114 &1155000103
 MonoBehaviour:
@@ -3605,6 +3578,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1532181967}
   - component: {fileID: 1532181968}
+  - component: {fileID: 1532181969}
   m_Layer: 5
   m_Name: Item
   m_TagString: Untagged
@@ -3682,6 +3656,20 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 1
+--- !u!114 &1532181969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1532181966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c21fb04ec7618ab49983446c731c32ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  joustMatrix: {fileID: 42780117}
+  initializer: {fileID: 95206408}
 --- !u!1 &1592794579
 GameObject:
   m_ObjectHideFlags: 0
@@ -4349,6 +4337,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1776784103}
   - component: {fileID: 1776784104}
+  - component: {fileID: 1776784105}
   m_Layer: 5
   m_Name: Item
   m_TagString: Untagged
@@ -4426,6 +4415,20 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 1
+--- !u!114 &1776784105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1776784102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c21fb04ec7618ab49983446c731c32ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  joustMatrix: {fileID: 42780117}
+  initializer: {fileID: 1970156857}
 --- !u!1 &1784685855
 GameObject:
   m_ObjectHideFlags: 0
@@ -5279,6 +5282,5 @@ SceneRoots:
   m_Roots:
   - {fileID: 330046008}
   - {fileID: 439269972}
-  - {fileID: 435380563}
   - {fileID: 100699733}
   - {fileID: 1371767002}
