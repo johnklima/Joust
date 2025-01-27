@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 public class JoustMatrix : MonoBehaviour
 {
@@ -76,9 +78,14 @@ public class JoustMatrix : MonoBehaviour
                                     //steady seat next round (why? as Gygax! oh shit, he's dead)
 
     public bool prevK2restrict;    //rule if break lance or helm off last round must assume 
-                                    //steady seat next round (why? as Gygax! oh shit, he's dead)
+                                   //steady seat next round (why? as Gygax! oh shit, he's dead)
 
+    private void FixedUpdate()
+    {
+        //runs fewer times, so lets plop validate here
+        GetComponent<Button>().interactable = Validate();
 
+    }
     private void Start()
     {
         //And now, ya just gotta say what is what, if it is not
@@ -173,88 +180,73 @@ public class JoustMatrix : MonoBehaviour
         //Validate is tied to the GUI, prolly shouldn't do that, fix that later
         //OR assume validation happens in the GUI prior to resolution, in which case
         //figure out how to disable an entry in the list? DONE
+
         //this is redundant unless AI code is running this, not GUI - code needs
         //similar pre-check TODO: refactor this for AI, or AI make AI know the rules
 
         //previous round restrictions
         if (prevK1restrict == true && K1_Defend.value != col_SteadySeat_Defense)
         {
-            //I guess I am shaken, and ust recover
-            Debug.Log("RULE: lost helm or broken lance, you must assume steady seat");
             K1_Defend.value = col_SteadySeat_Defense;
         }
 
         if (prevK2restrict == true && K2_Defend.value != col_SteadySeat_Defense)
         {
-            //I guess I am shaken, and ust recover
-            Debug.Log("RULE: K2 lost helm or broken lance, you must assume steady seat");
             K2_Defend.value = col_SteadySeat_Defense;
         }
         
         //Aim/Defense restriction  - TODO: find generalization?
         if(K1_Aim.value == row_Helm_Aim &&  K1_Defend.value < 3 )
         {
-            Debug.Log("K1 cannot assume that defense given the attack");
             return false;
         }
         if (K2_Aim.value == row_Helm_Aim && K2_Defend.value < 3)
         {
-            Debug.Log("K2 cannot assume that defense given the attack");
             return false;
         }
         if (K1_Aim.value == row_DC_Aim && K1_Defend.value < 2)
         {
-            Debug.Log("K1 cannot assume that defense given the attack");
             return false;
         }
         if (K2_Aim.value == row_DC_Aim && K2_Defend.value < 2)
         {
-            Debug.Log("K2 cannot assume that defense given the attack");
             return false;
         }
         if (K1_Aim.value == row_SC_Aim && K1_Defend.value < 3 && K1_Defend.value != 1)
         {
-            Debug.Log("K1 cannot assume that defense given the attack");
             return false;
         }
         if (K2_Aim.value == row_SC_Aim && K2_Defend.value < 3 && K2_Defend.value != 1)
         {
-            Debug.Log("K2 cannot assume that defense given the attack");
             return false;
         }
         if (K1_Aim.value == row_DF_Aim && K1_Defend.value < 3 )
         {
-            Debug.Log("K1 cannot assume that defense given the attack");
             return false;
         }
 
         if (K2_Aim.value == row_DF_Aim && K2_Defend.value < 3)
         {
-            Debug.Log("K2 cannot assume that defense given the attack");
             return false;
         }
 
         if (K1_Aim.value == row_SF_Aim && K1_Defend.value < 3)
         {
-            Debug.Log("K1 cannot assume that defense given the attack");
             return false;
         }
         
         if (K2_Aim.value == row_SF_Aim && K2_Defend.value < 3)
         {
-            Debug.Log("K2 cannot assume that defense given the attack");
             return false;
         }
 
         if (K1_Aim.value == row_Base_Aim && K1_Defend.value < 3 && K1_Defend.value != 0)
         {
-            Debug.Log("K1 cannot assume that defense given the attack");
             return false;
         }
 
         if (K2_Aim.value == row_Base_Aim && K2_Defend.value < 3 && K2_Defend.value != 0)
         {
-            Debug.Log("K1 cannot assume that defense given the attack");
             return false;
         }
 

@@ -57,10 +57,6 @@ public class Validate : MonoBehaviour
                 if (toggle.name.Contains("2"))
                     toggle.interactable = false;
 
-                //pick first valid
-                joustMatrix.K1_Defend.value = 3;
-                if (toggle.name.Contains("3"))
-                    toggle.isOn = true;
 
             }
 
@@ -71,10 +67,6 @@ public class Validate : MonoBehaviour
                 if (toggle.name.Contains("1"))
                     toggle.interactable = false;
 
-                //pick first valid
-                joustMatrix.K1_Defend.value = 2;
-                if (toggle.name.Contains("2"))
-                    toggle.isOn = true;
 
             }
 
@@ -85,10 +77,6 @@ public class Validate : MonoBehaviour
                 if (toggle.name.Contains("2"))
                     toggle.interactable = false;
 
-                //pick first valid
-                joustMatrix.K1_Defend.value = 1;
-                if (toggle.name.Contains("1"))
-                    toggle.isOn = true;
 
             }
 
@@ -101,10 +89,6 @@ public class Validate : MonoBehaviour
                 if (toggle.name.Contains("2"))
                     toggle.interactable = false;
 
-                //pick first valid
-                joustMatrix.K1_Defend.value = 3;
-                if (toggle.name.Contains("3"))
-                    toggle.isOn = true;
 
 
             }
@@ -118,10 +102,6 @@ public class Validate : MonoBehaviour
                 if (toggle.name.Contains("2"))
                     toggle.interactable = false;
 
-                //pick first valid
-                joustMatrix.K1_Defend.value = 3;
-                if (toggle.name.Contains("3"))
-                    toggle.isOn = true;
 
             }
 
@@ -132,10 +112,6 @@ public class Validate : MonoBehaviour
                 if (toggle.name.Contains("2"))
                     toggle.interactable = false;
 
-                //pick first valid
-                joustMatrix.K1_Defend.value = 0;
-                if (toggle.name.Contains("0"))
-                    toggle.isOn = true;
 
 
             }
@@ -186,10 +162,6 @@ public class Validate : MonoBehaviour
                 if (toggle.name.Contains("2"))
                     toggle.interactable = false;
 
-                //pick first valid
-                joustMatrix.K2_Defend.value = 3;
-                if (toggle.name.Contains("3"))
-                    toggle.isOn = true;
 
             }
 
@@ -200,10 +172,6 @@ public class Validate : MonoBehaviour
                 if (toggle.name.Contains("1"))
                     toggle.interactable = false;
 
-                //pick first valid
-                joustMatrix.K2_Defend.value = 2;
-                if (toggle.name.Contains("2"))
-                    toggle.isOn = true;
 
             }
 
@@ -214,10 +182,6 @@ public class Validate : MonoBehaviour
                 if (toggle.name.Contains("2"))
                     toggle.interactable = false;
 
-                //pick first valid
-                joustMatrix.K2_Defend.value = 1;
-                if (toggle.name.Contains("1"))
-                    toggle.isOn = true;
 
             }
 
@@ -230,10 +194,6 @@ public class Validate : MonoBehaviour
                 if (toggle.name.Contains("2"))
                     toggle.interactable = false;
 
-                //pick first valid
-                joustMatrix.K2_Defend.value = 3;
-                if (toggle.name.Contains("3"))
-                    toggle.isOn = true;
 
             }
 
@@ -246,10 +206,6 @@ public class Validate : MonoBehaviour
                 if (toggle.name.Contains("2"))
                     toggle.interactable = false;
 
-                //pick first valid
-                joustMatrix.K2_Defend.value = 3;
-                if (toggle.name.Contains("3"))
-                    toggle.isOn = true;
 
             }
 
@@ -260,10 +216,6 @@ public class Validate : MonoBehaviour
                 if (toggle.name.Contains("2"))
                     toggle.interactable = false;
 
-                //pick first valid
-                joustMatrix.K2_Defend.value = 0;
-                if (toggle.name.Contains("0"))
-                    toggle.isOn = true;
 
             }
 
