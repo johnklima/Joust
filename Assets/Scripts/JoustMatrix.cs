@@ -180,8 +180,8 @@ public class JoustMatrix : MonoBehaviour
             //should not create just the right amount of confusion 
             doKnight1AimAnimation();
             doKnight2DefendAnimation();
-            doKnight2AimAnimation();
-            doKnight1DefendAnimation();
+            //doKnight2AimAnimation();
+            //doKnight1DefendAnimation();
 
             int rk1 = 0;
             int rK2 = 0;
@@ -229,6 +229,7 @@ public class JoustMatrix : MonoBehaviour
     }
     void doKnight1ResolveAnimation(int result)
     {
+        Debug.Log(result.ToString());
         K1_animator.SetTrigger(triggerResult[result]);
 
     }
