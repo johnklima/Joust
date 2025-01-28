@@ -163,6 +163,7 @@ public class JoustMatrix : MonoBehaviour
             if (Validate() == false)
             {
                 resolve = false;
+                Debug.Log("BAD SUSHI!!");
                 return;            
             }
 
@@ -182,35 +183,60 @@ public class JoustMatrix : MonoBehaviour
             doKnight2AimAnimation();
             doKnight1DefendAnimation();
 
+            int rk1 = 0;
+            int rK2 = 0;
 
-            joustKnight1resolution(knight1Aim, knight2Defense);
-            joustKnight2resolution(knight2Aim, knight1Defense);
+            rk1 = joustKnight1resolution(knight1Aim, knight2Defense);
+            rK2 = joustKnight2resolution(knight2Aim, knight1Defense);
 
-            
-
+            doKnight1ResolveAnimation(rk1);
+            doKnight2ResolveAnimation(rK2);
         }
     }
 
     //define here the animation trigger names
     string[] triggerAttack = { "trigAttack0", "trigAttack1", "trigAttack2",
                                "trigAttack3", "trigAttack4", "trigAttack5",
-                               "trigAttack6", "trigAttack7"               };
+                               "trigAttack6", "trigAttack7"               
+                             };
+
+    string[] triggerDefend = { "trigDefense0", "trigDefense1", "trigDefense2",
+                               "trigDefense3", "trigDefense4", "trigDefense5"
+                             };
+
+    string[] triggerResult = { "trigResult0", "trigResult1", "trigResult2",
+                               "trigResult3", "trigResult4", "trigResult5"
+                             };
+
+
 
 
     void doKnight1AimAnimation()
     {
-
         K1_animator.SetTrigger(triggerAttack[knight1Aim]);
     }
     void doKnight2DefendAnimation()
-    { }
+    {
+        K2_animator.SetTrigger(triggerDefend[knight2Defense]);
+    }
     void doKnight2AimAnimation() 
     {
         K2_animator.SetTrigger(triggerAttack[knight2Aim]);
     }
     void doKnight1DefendAnimation() 
-    { }
+    {
+        K1_animator.SetTrigger(triggerDefend[knight1Defense]);
+    }
+    void doKnight1ResolveAnimation(int result)
+    {
+        K1_animator.SetTrigger(triggerResult[result]);
 
+    }
+    void doKnight2ResolveAnimation(int result)
+    {
+        K2_animator.SetTrigger(triggerResult[result]);
+
+    }
 
 
 
