@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
@@ -24,7 +25,10 @@ public class JoustMatrix : MonoBehaviour
     public int knight1Defense= 0;
     public int knight2Aim = 0;
     public int knight2Defense = 0;
+
     public bool resolve = false;
+    public bool result = false;
+    public bool finalize = false;
 
     public int resultK1;
     public int resultK2;
@@ -156,21 +160,23 @@ public class JoustMatrix : MonoBehaviour
         resultTable[col_SheildLow_Defense, row_Base_Aim] = res_BreakLance;
     }
 
+
     private void Update()
     {
-        if(resolve)
+        if (resolve)
         {
+
             if (Validate() == false)
             {
                 resolve = false;
                 Debug.Log("BAD SUSHI!!");
-                return;            
+                return;
             }
 
             //take our input integers and figure out what is next
             //TODO: enforce input rules, that's a gui issue, not a matrix issue
 
-            resolve = false;
+
 
             //TODO: generalize all below
             //using completion animations, should not need a timer?
@@ -178,11 +184,27 @@ public class JoustMatrix : MonoBehaviour
             //K2Aim fires AFTER K2Defend completes, K1Defend fires
             //if anim lengths are more or less the same
             //should not create just the right amount of confusion 
+
             doKnight1AimAnimation();
             doKnight2DefendAnimation();
-            //doKnight2AimAnimation();
-            //doKnight1DefendAnimation();
+            resolve = false;
+            result = true;
+            return;     //air
+        }
 
+        if (result)
+        {
+            result = false;
+            //maybe need some air here after all?
+            //wait for K2 to complete
+            doKnight2AimAnimation();
+            doKnight1DefendAnimation();
+            finalize = true;
+            return; //air
+        }
+
+        if(finalize)
+        {
             int rk1 = 0;
             int rK2 = 0;
 
@@ -191,7 +213,13 @@ public class JoustMatrix : MonoBehaviour
 
             doKnight1ResolveAnimation(rk1);
             doKnight2ResolveAnimation(rK2);
+
+            finalize = false;
+            return; //air
+
         }
+
+
     }
 
     //define here the animation trigger names
