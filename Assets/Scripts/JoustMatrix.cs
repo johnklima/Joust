@@ -87,12 +87,7 @@ public class JoustMatrix : MonoBehaviour
     public bool prevK2restrict;    //rule if break lance or helm off last round must assume 
                                    //steady seat next round (why? as Gygax! oh shit, he's dead)
 
-    private void FixedUpdate()
-    {
-        //runs fewer times, so lets plop validate here
-        GetComponent<Button>().interactable = Validate();
 
-    }
     private void Start()
     {
         //And now, ya just gotta say what is what, if it is not
@@ -163,6 +158,9 @@ public class JoustMatrix : MonoBehaviour
 
     private void Update()
     {
+        
+        
+        //and try to give air to the animator
         if (resolve)
         {
 
@@ -233,7 +231,8 @@ public class JoustMatrix : MonoBehaviour
                              };
 
     string[] triggerResult = { "trigResult0", "trigResult1", "trigResult2",
-                               "trigResult3", "trigResult4", "trigResult5"
+                               "trigResult3", "trigResult4", "trigResult5",
+                               "trigResult3","trigResult1"                      //pad extras for the B/U/I results
                              };
 
 
