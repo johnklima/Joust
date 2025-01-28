@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class JoustMatrix : MonoBehaviour
 {
     //animation and/or UI will reference this to determine visualization
+    //BUT for ease of code, join them all here, make it work, and then refactor
+    //TODO: refactor
 
 
     public Dropdown K1_Aim;
@@ -14,7 +16,8 @@ public class JoustMatrix : MonoBehaviour
     public Dropdown K1_Defend;
     public Dropdown K2_Defend;
 
-
+    public Animator K1_animator;
+    public Animator K2_animator;
 
     //inputs to the joust round
     public int knight1Aim = 0;
@@ -168,13 +171,49 @@ public class JoustMatrix : MonoBehaviour
 
             resolve = false;
 
+            //TODO: generalize all below
+            //using completion animations, should not need a timer?
+            //K1Aim and K2Defend will fire first
+            //K2Aim fires AFTER K2Defend completes, K1Defend fires
+            //if anim lengths are more or less the same
+            //should not create just the right amount of confusion 
+            doKnight1AimAnimation();
+            doKnight2DefendAnimation();
+            doKnight2AimAnimation();
+            doKnight1DefendAnimation();
+
+
             joustKnight1resolution(knight1Aim, knight2Defense);
             joustKnight2resolution(knight2Aim, knight1Defense);
+
+            
 
         }
     }
 
-   
+    //define here the animation trigger names
+    string[] triggerAttack = { "trigAttack0", "trigAttack1", "trigAttack2",
+                               "trigAttack3", "trigAttack4", "trigAttack5",
+                               "trigAttack6", "trigAttack7"               };
+
+
+    void doKnight1AimAnimation()
+    {
+
+        K1_animator.SetTrigger(triggerAttack[knight1Aim]);
+    }
+    void doKnight2DefendAnimation()
+    { }
+    void doKnight2AimAnimation() 
+    {
+        K2_animator.SetTrigger(triggerAttack[knight2Aim]);
+    }
+    void doKnight1DefendAnimation() 
+    { }
+
+
+
+
     bool Validate()
     {
         //Validate is tied to the GUI, prolly shouldn't do that, fix that later
