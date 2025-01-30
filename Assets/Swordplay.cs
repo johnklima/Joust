@@ -22,10 +22,30 @@ public class Swordplay : MonoBehaviour
                                "trigAttack6", "trigAttack7"
                              };
 
+    float[] timeAttack = { 1.4f, 3.4f, 1.4f,
+                           2.3f, 1.2f, 2.2f,
+                           1.2f, 1.6f
+                         };
+
+
+
+
+    string[] animAttack = { "attack0", "attack1", "attack2",
+                               "attack3", "attack4", "attack5",
+                               "attack6", "attack7"
+                             };
+
     string[] triggerDefend = { "trigDefend0", "trigDefend1", "trigDefend2",
                                "trigDefend3", "trigDefend4", "trigDefend5"
                              };
 
+    float[] timeDefend = { 2, 2, 2,
+                           2, 2, 2
+                         };
+
+    string[] animDefend = { "defense0", "defense1", "defense2",
+                               "defense3", "defense4", "defense5"
+                             };
 
     // Start is called before the first frame update
     void Start()
@@ -36,11 +56,12 @@ public class Swordplay : MonoBehaviour
 
     // Update is called once per frame
     float timer = 0;
+    float duration = 0;  //i have only found a dumbass hardcode way to do this
     int fstate = -1;
 
     void Update()
     {
-        if (fstate == 0 && Time.time - timer > 2)
+        if (fstate == 0)
         {
 
             K1animator.SetBool("isAttack", true);
@@ -52,10 +73,13 @@ public class Swordplay : MonoBehaviour
             fstate = 1;
 
             timer = Time.time;
+            
+            duration = timeAttack[K1attack.value];
+                        
 
             return;  //give it air
         }
-        if (fstate == 1 && Time.time - timer > 2)
+        if (fstate == 1 && Time.time - timer > duration)
         {
             K2animator.SetBool("resetDefend", true);
             K1animator.SetBool("resetAttack", true);
@@ -68,22 +92,34 @@ public class Swordplay : MonoBehaviour
             K2animator.SetTrigger(triggerAttack[K2attack.value]);
 
             timer = Time.time;
-            fstate = 3;
+            
+            duration = duration = timeAttack[K2attack.value];
+
+
+            fstate = 2;
 
             return;  //give it air
         }
-        if(fstate == 3 && Time.time - timer > 2)
+        if(fstate == 2 && Time.time - timer > duration)
         {
             K1animator.SetBool("resetDefend", true);
             K2animator.SetBool("resetAttack", true);
 
             timer = Time.time;
-            fstate = 3;
+            fstate = -1;
 
         }
 
     }
-
+    bool AnimatorIsPlaying(Animator animator)
+    {
+        return animator.GetCurrentAnimatorStateInfo(0).length >
+               animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
+    }
+    bool AnimatorIsPlaying(string stateName, Animator animator)
+    {
+        return AnimatorIsPlaying(animator) && animator.GetCurrentAnimatorStateInfo(0).IsName(stateName);
+    }
     public void Fight()
     {
 

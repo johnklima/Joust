@@ -81,7 +81,7 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0.18380713
   m_TransitionOffset: 0
   m_ExitTime: 0.9318182
   m_HasExitTime: 0
@@ -125,12 +125,12 @@ AnimatorStateMachine:
   m_AnyStateTransitions: []
   m_EntryTransitions: []
   m_StateMachineTransitions:
-  - first: {fileID: -362663002604974637}
-    second:
-    - {fileID: -7978871908890945431}
   - first: {fileID: -4615276393635354628}
     second:
     - {fileID: 6342800660945027893}
+  - first: {fileID: -362663002604974637}
+    second:
+    - {fileID: -7978871908890945431}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 50, y: 20, z: 0}
   m_EntryPosition: {x: 50, y: 120, z: 0}
@@ -356,9 +356,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
-  m_TransitionOffset: 0
-  m_ExitTime: 0.75
+  m_TransitionDuration: 0.10830474
+  m_TransitionOffset: 0.006876476
+  m_ExitTime: 0.7528131
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -408,9 +408,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
-  m_TransitionOffset: 0
-  m_ExitTime: 0.9318182
+  m_TransitionDuration: 0.1382432
+  m_TransitionOffset: 0.077360936
+  m_ExitTime: 0.9437739
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -1285,9 +1285,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0.23472953
   m_TransitionOffset: 0
-  m_ExitTime: 0.96681416
+  m_ExitTime: 0.92495686
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -1404,9 +1404,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0.12986374
   m_TransitionOffset: 0
-  m_ExitTime: 0.96681416
+  m_ExitTime: 0.9578784
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
