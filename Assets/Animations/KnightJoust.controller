@@ -1013,7 +1013,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Knight
+  m_Name: KnightJoust
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: trigDefense0
@@ -1496,28 +1496,28 @@ AnimatorStateMachine:
     m_Position: {x: 460, y: 350, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -8300323271311799674}
-    m_Position: {x: 40, y: 200, z: 0}
+    m_Position: {x: -60, y: 260, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 3972999527014552259}
-    m_Position: {x: 40, y: 270, z: 0}
+    m_Position: {x: -60, y: 330, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 3060327833061947096}
-    m_Position: {x: 40, y: 340, z: 0}
+    m_Position: {x: -60, y: 400, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4152773422105856000}
-    m_Position: {x: 40, y: 410, z: 0}
+    m_Position: {x: -60, y: 470, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4616716939342834596}
-    m_Position: {x: 40, y: 470, z: 0}
+    m_Position: {x: -60, y: 530, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1482424360314647293}
-    m_Position: {x: 40, y: 530, z: 0}
+    m_Position: {x: -60, y: 590, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -8944976759946010865}
-    m_Position: {x: 40, y: 590, z: 0}
+    m_Position: {x: -60, y: 650, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1073089412699163618}
-    m_Position: {x: 40, y: 650, z: 0}
+    m_Position: {x: -60, y: 710, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4379340805615725882}
     m_Position: {x: 780, y: 190, z: 0}
