@@ -35,6 +35,7 @@ public class Swordplay : MonoBehaviour
                                "attack6", "attack7"
                              };
 
+
     string[] triggerDefend = { "trigDefend0", "trigDefend1", "trigDefend2",
                                "trigDefend3", "trigDefend4", "trigDefend5"
                              };
@@ -43,9 +44,13 @@ public class Swordplay : MonoBehaviour
                            2, 2, 2
                          };
 
+    
     string[] animDefend = { "defense0", "defense1", "defense2",
                                "defense3", "defense4", "defense5"
                              };
+
+
+    string[] triggerResult = { "result0", "result1", "result2" };
 
     // Start is called before the first frame update
     void Start()
@@ -93,17 +98,32 @@ public class Swordplay : MonoBehaviour
 
             timer = Time.time;
             
-            duration = duration = timeAttack[K2attack.value];
+            duration = timeAttack[K2attack.value];
 
 
             fstate = 2;
 
             return;  //give it air
         }
-        if(fstate == 2 && Time.time - timer > duration)
+        if(fstate == 2 && Time.time -timer > duration)
         {
             K1animator.SetBool("resetDefend", true);
             K2animator.SetBool("resetAttack", true);
+
+        
+
+
+        }
+        if (fstate == 3 && Time.time - timer > duration)
+        {
+            //for now, i'm tired, just want to see a complete sequence
+            //TODO: make the combat table
+            K1animator.SetTrigger(triggerResult[2]);
+            K2animator.SetTrigger(triggerResult[1]);
+
+            K2animator.SetBool("isResult", true);
+            K1animator.SetBool("isResult", true);
+
 
             timer = Time.time;
             fstate = -1;
@@ -125,16 +145,20 @@ public class Swordplay : MonoBehaviour
 
         K1animator.SetBool("isAttack", false);
         K1animator.SetBool("isDefend", false);
+        K1animator.SetBool("isResult", false);
 
         K2animator.SetBool("isAttack", false);
         K2animator.SetBool("isDefend", false);
+        K2animator.SetBool("isResult", false);
 
 
         K1animator.SetBool("resetDefend", false);
         K1animator.SetBool("resetAttack", false);
+        K1animator.SetBool("resetResult", false);
 
         K2animator.SetBool("resetDefend", false);
         K2animator.SetBool("resetAttack", false);
+        K2animator.SetBool("resetResult", false);
 
         fstate = 0;
     }
