@@ -15065,7 +15065,7 @@ GameObject:
   - component: {fileID: 437027329}
   - component: {fileID: 437027332}
   m_Layer: 0
-  m_Name: Button (Legacy)
+  m_Name: Fight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

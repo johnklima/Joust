@@ -22,6 +22,11 @@ public class Swordplay : MonoBehaviour
                                "trigAttack6", "trigAttack7"
                              };
 
+    string[] animAttack = { "attack0", "attack1", "attack2",
+                               "attack3", "attack4", "attack5",
+                               "attack6", "attack7"
+                             };
+
     float[] timeAttack = { 1.4f, 3.4f, 1.4f,
                            2.3f, 1.2f, 2.2f,
                            1.2f, 1.6f
@@ -30,32 +35,137 @@ public class Swordplay : MonoBehaviour
 
 
 
-    string[] animAttack = { "attack0", "attack1", "attack2",
-                               "attack3", "attack4", "attack5",
-                               "attack6", "attack7"
-                             };
-
-
     string[] triggerDefend = { "trigDefend0", "trigDefend1", "trigDefend2",
                                "trigDefend3", "trigDefend4", "trigDefend5"
+                             };
+
+    string[] animDefend = { "defense0", "defense1", "defense2",
+                               "defense3", "defense4", "defense5"
                              };
 
     float[] timeDefend = { 2, 2, 2,
                            2, 2, 2
                          };
 
-    
-    string[] animDefend = { "defense0", "defense1", "defense2",
-                               "defense3", "defense4", "defense5"
-                             };
 
+    string[] triggerResult = { "trigResult0", "trigResult1", "trigResult2","trigResult3", "trigResult4" };
 
-    string[] triggerResult = { "result0", "result1", "result2" };
+    string[] animResult = { "result0", "result1", "result2", "result3", "result4" };
+
+    float[] timeResult = { 1, 1, 1,
+                           1, 1  };
+
+    //now define result look up table
+
+    private const int cols = 6;
+    private const int rows = 8;
+
+    //just a datatype for now in col,row order
+    int[,] resultTable = new int[cols, rows];
+
+    //TODO: define enums for table
+
 
     // Start is called before the first frame update
     void Start()
     {
+
+        //build combat result table at startup
+        //this is Defender response to Attacker
+        //TODO: make a LUT for Attacker response to Defender result (victory, missedhit)
+        //Hit fall forward = 0
+        //Hit fall back = 1
+        //Victory = 2
+        //Glance = 3
+        //Miss = 4
         
+        //column order
+        // D0, A0 etc...
+        resultTable[0, 0] = 4;
+        resultTable[0, 1] = 0;
+        resultTable[0, 2] = 0;
+        resultTable[0, 3] = 0;
+        resultTable[0, 4] = 3;
+        resultTable[0, 5] = 4;
+        resultTable[0, 6] = 0;
+        resultTable[0, 7] = 1;
+
+        //Hit fall forward = 0
+        //Hit fall back = 1
+        //Victory = 2
+        //Glance = 3
+        //Miss = 4
+
+        resultTable[1, 0] = 3;
+        resultTable[1, 1] = 3;
+        resultTable[1, 2] = 3;
+        resultTable[1, 3] = 1;
+        resultTable[1, 4] = 4;
+        resultTable[1, 5] = 4;
+        resultTable[1, 6] = 3;
+        resultTable[1, 7] = 0;
+
+        //Hit fall forward = 0
+        //Hit fall back = 1
+        //Victory = 2
+        //Glance = 3
+        //Miss = 4
+
+        resultTable[2, 0] = 3;
+        resultTable[2, 1] = 3;
+        resultTable[2, 2] = 3;
+        resultTable[2, 3] = 0;
+        resultTable[2, 4] = 4;
+        resultTable[2, 5] = 4;
+        resultTable[2, 6] = 3;
+        resultTable[2, 7] = 1;
+
+
+        //Hit fall forward = 0
+        //Hit fall back = 1
+        //Victory = 2
+        //Glance = 3
+        //Miss = 4
+
+        resultTable[3, 0] = 4;
+        resultTable[3, 1] = 4;
+        resultTable[3, 2] = 4;
+        resultTable[3, 3] = 4;
+        resultTable[3, 4] = 3;
+        resultTable[3, 5] = 4;
+        resultTable[3, 6] = 3;
+        resultTable[3, 7] = 3;
+
+        //Hit fall forward = 0
+        //Hit fall back = 1
+        //Victory = 2
+        //Glance = 3
+        //Miss = 4
+
+        resultTable[4, 0] = 4;
+        resultTable[4, 1] = 4;
+        resultTable[4, 2] = 4;
+        resultTable[4, 3] = 4;
+        resultTable[4, 4] = 0;
+        resultTable[4, 5] = 3;
+        resultTable[4, 6] = 3;
+        resultTable[4, 7] = 1;
+
+        //Hit fall forward = 0
+        //Hit fall back = 1
+        //Victory = 2
+        //Glance = 3
+        //Miss = 4
+
+        resultTable[5, 0] = 3;
+        resultTable[5, 1] = 1;
+        resultTable[5, 2] = 0;
+        resultTable[5, 3] = 4;
+        resultTable[5, 4] = 4;
+        resultTable[5, 5] = 0;
+        resultTable[5, 6] = 1;
+        resultTable[5, 7] = 3;
+
     }
 
 
@@ -63,9 +173,13 @@ public class Swordplay : MonoBehaviour
     float timer = 0;
     float duration = 0;  //i have only found a dumbass hardcode way to do this
     int fstate = -1;
-
+    int K1result;
+    int K2result;
     void Update()
     {
+        //TODO: make states for each knight's "turn" as attacker
+
+  
         if (fstate == 0)
         {
 
@@ -80,8 +194,9 @@ public class Swordplay : MonoBehaviour
             timer = Time.time;
             
             duration = timeAttack[K1attack.value];
-                        
 
+            K2result = resultTable[K2defend.value, K1attack.value];
+                
             return;  //give it air
         }
         if (fstate == 1 && Time.time - timer > duration)
@@ -100,32 +215,40 @@ public class Swordplay : MonoBehaviour
             
             duration = timeAttack[K2attack.value];
 
+            K1result = resultTable[K1defend.value, K2attack.value];
 
             fstate = 2;
 
             return;  //give it air
         }
-        if(fstate == 2 && Time.time -timer > duration)
+        if(fstate == 2 && Time.time - timer > duration)
         {
             K1animator.SetBool("resetDefend", true);
             K2animator.SetBool("resetAttack", true);
 
-        
-
-
-        }
-        if (fstate == 3 && Time.time - timer > duration)
-        {
-            //for now, i'm tired, just want to see a complete sequence
-            //TODO: make the combat table
-            K1animator.SetTrigger(triggerResult[2]);
-            K2animator.SetTrigger(triggerResult[1]);
-
             K2animator.SetBool("isResult", true);
             K1animator.SetBool("isResult", true);
 
+            //select 
 
+            K1animator.SetTrigger(triggerResult[K1result]);  
+            K2animator.SetTrigger(triggerResult[K2result]);  
+            
             timer = Time.time;
+
+            duration = timeResult[2];
+
+            fstate = 3;
+
+            return; //air
+        }
+        if (fstate == 3 && Time.time - timer > duration)
+        {
+            
+
+            K2animator.SetBool("resetResult", true);
+            K1animator.SetBool("resetResult", true);
+
             fstate = -1;
 
         }
