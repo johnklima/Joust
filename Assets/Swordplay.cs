@@ -199,6 +199,9 @@ public class Swordplay : MonoBehaviour
                 
             return;  //give it air
         }
+
+        //TODO: insert K2 defend result K1 attack result here
+        
         if (fstate == 1 && Time.time - timer > duration)
         {
             K2animator.SetBool("resetDefend", true);
@@ -221,7 +224,10 @@ public class Swordplay : MonoBehaviour
 
             return;  //give it air
         }
-        if(fstate == 2 && Time.time - timer > duration)
+
+        //TODO: insert K1 defend result K2 attack result here
+
+        if (fstate == 2 && Time.time - timer > duration)
         {
             K1animator.SetBool("resetDefend", true);
             K2animator.SetBool("resetAttack", true);
