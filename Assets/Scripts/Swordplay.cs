@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Swordplay : MonoBehaviour
 {
+    public NN_Test knightNN;
 
     public Animator K1animator;
     public Animator K2animator;
@@ -186,17 +187,27 @@ public class Swordplay : MonoBehaviour
             K1animator.SetBool("isAttack", true);
             K1animator.SetTrigger(triggerAttack[K1attack.value]);
 
+
             K2animator.SetBool("isDefend", true);
             K2animator.SetTrigger(triggerDefend[K2defend.value]);
 
-            fstate = 1;
+           
+
+           fstate = 1;
 
             timer = Time.time;
             
             duration = timeAttack[K1attack.value];
 
             K2result = resultTable[K2defend.value, K1attack.value];
-                
+
+            Debug.Log("K2 defend " + K2defend.value + " CRT K1 attack " + K1attack.value);
+            Debug.Log("K2 result " + K2result);
+            //NN
+            knightNN.SetQuestion( (float)(K2defend.value +1 ) * 0.1f,(float)(K1attack.value + 1 ) * 0.1f);
+            knightNN.AskQuestion();
+            Debug.Log("K2 defend NN K1 attack RESULT: " + (knightNN.answer ));
+
             return;  //give it air
         }
 
@@ -214,11 +225,21 @@ public class Swordplay : MonoBehaviour
             K2animator.SetBool("isAttack", true);
             K2animator.SetTrigger(triggerAttack[K2attack.value]);
 
+            
             timer = Time.time;
             
             duration = timeAttack[K2attack.value];
 
             K1result = resultTable[K1defend.value, K2attack.value];
+
+            Debug.Log("K1 defend " + K2defend.value + " CRT K2 attack " + K1attack.value);
+            Debug.Log("K1 result " + K1result);
+
+
+            //NN
+            knightNN.SetQuestion((float)(K1defend.value + 1 ) * 0.1f, (float)(K2attack.value + 1 ) * 0.1f);
+            knightNN.AskQuestion();
+            Debug.Log("K1 defend NN K2 attack RESULT: " + (knightNN.answer) );
 
             fstate = 2;
 
